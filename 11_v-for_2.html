@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>11_v-for_2.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model="id">
+		<input type="text" v-model="name">
+		<button type="button" @click="add()">add</button>
+		
+		<!--
+			1. 修改了v-for中使用的vue对象的属性时，会引起v-for的重新执行。
+			2. 值得注意的是，如果修改了v-for使用的属性之外的属性时，也会去重新执行v-for循环！！！
+		-->
+		<div v-for="item in f2()">
+			{{item.id}}-----------{{item.name}}
+		</div>
+	</div>
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data:{
+				id: "",
+				name: "",
+				list: [
+					{id:1,name:'张飞'},
+					{id:2,name:'关羽'},
+					{id:3,name:'赵云'},
+					{id:4,name:'马超'},
+					{id:5,name:'黄忠'}
+				]
+			},
+			methods:{
+				add() {
+					var user = {id:this.id,name:this.name};
+					this.list.push(user);//在集合的最后一个添加
+				},
+				f2() {
+					console.log('循环执行啦');
+					return this.list;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

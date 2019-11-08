@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>39_router.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>	
+	<!-- 
+		我们已经知道，使用<router-link>可以切换路由！！
+					
+		我们也可以不适用这个标记，而是使用Vue代码来切换路由！
+	 -->
+	<div id="app">
+		<button @click="f1()">去登录</button>
+		<button @click="f2()">去注册</button>
+		<router-view></router-view>
+	</div>
+	
+	
+	<template id="login">
+		<form>
+			username: <input type="text"><br>
+			password: <input type="text"><br>
+			<button type="button" @click="f3()">login</button>
+		</form>
+	</template>
+	
+	<template id="register">
+		<form>
+			username: <input type="text"><br>
+			password: <input type="text"><br>
+			<button type="button">register</button>
+		</form>
+	</template>
+	
+	<script>
+		//注册组件
+		var login = {
+			template: "#login",
+			methods: {
+				f3() {
+					console.log(this.$route.params.id);
+					console.log(this.$route.params.name);
+				}
+			}
+		};
+		var register = {
+			template: "#register"
+		};
+		
+		//注册路由
+		var router = new VueRouter({
+			routes: [
+				{path: "/", component: login},
+				{path: "/login/:id/:name", component: login},
+				{path: "/register", component: register},
+			]
+		});
+		
+		var app = new Vue({
+			el: "#app",
+			data: {
+				id: 100,
+				name: 'andy'
+			},
+			methods: {
+				f1() {
+					// 使用Vue代码实现路由切换
+					// 此时this.$router, 后面就是有"r"!!(对比,在获取给路由传递的参数时,才使用this.$route)
+					this.$router.push("/login/"+this.id+"/"+this.name);
+				},
+				f2() {
+					this.$router.replace("register");
+				}
+			},
+			router
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>17_directive.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}<input type="text" v-model="msg" v-foo>
+	</div>
+	<hr >
+	<script>
+		//定义全局指令
+		/* Vue.directive("foo",{
+			// 以下的3个参数,都可以有一个参数,该参数就是指令所绑定的DOM元素
+			// 而且该参数还是一个原生DOM对象
+			// foo指令一旦绑定到元素上,就执行bind函数, 元素还没有被vue加入dom中. 样式操作一般写在这里
+			bind(el) {
+				el.style.backgroundColor = "lightblue";
+				console.log("bind....");
+			},
+			// foo指令绑定的元素,一旦被vue添加到dom中以后,就执行inserted函数, js操作一般写在这里
+			inserted(el) {
+				el.focus();
+				console.log("inserted....");
+			},
+			// foo指令绑定的元素,所对应的vue实例的属性一旦变化,就会执行update函数
+			update(el) {
+				console.log("update....");
+			}
+		}) */
+		var app = new Vue({
+			el:"#app",
+			data: {
+				msg: "仅仅如此"
+			},
+			methods: {
+			},
+			directives: {
+				//定义局部指令
+				"foo": {
+					// 以下的3个参数,都可以有一个参数,该参数就是指令所绑定的DOM元素
+					// 而且该参数还是一个原生DOM对象
+					// foo指令一旦绑定到元素上,就执行bind函数, 元素还没有被vue加入dom中. 样式操作一般写在这里
+					bind(el) {
+						el.style.backgroundColor = "lightblue";
+						console.log("bind....");
+					},
+					// foo指令绑定的元素,一旦被vue添加到dom中以后,就执行inserted函数, js操作一般写在这里
+					inserted(el) {
+						el.focus();
+						console.log("inserted....");
+					},
+					// foo指令绑定的元素,所对应的vue实例的属性一旦变化,就会执行update函数
+					update(el) {
+						console.log("update....");
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

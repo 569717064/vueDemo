@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>10_style.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 普通方式添加样式 -->
+		<p :style="{'color':'red','font-size':'30px'}">这是一个p</p>
+		<!-- vue添加单个 -->
+		<p :style="styleObj1">这是一个p</p>
+		<!-- vue添加多个 -->
+		<p :style="[styleObj1,styleObj2]">这是一个p</p>
+	</div>
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data:{
+				styleObj1:{'color':'blue','font-size':'40px'},
+				styleObj2:{'color':'#8A2BE2','font-size':'50px'}
+			},
+			methods:{
+			}
+		});
+	</script>
+</body>
+</html>

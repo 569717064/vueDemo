@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>26_component.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>
+	<!-- 
+		组件切换 
+		
+		练习： 制作3个组件的切换 (禁止使用component)
+	-->
+	<div id="app">
+		<button @click="toggle()">登录</button>
+		<button @click="toggle()">注册</button>
+		<!-- <button type="button" @click="flag=">t3</button> -->
+		<login v-if="flag"></login>
+		<register v-if="!flag"></register>
+		<!-- <t3 v-if=""></t3> -->
+	</div>
+	
+	
+	<template id="login">
+		<form>
+			username: <input type="text"> <br />
+			password: <input type="text"> <br />
+			<button type="button">登录</button>
+		</form>
+	</template>
+	
+	<template id="register">
+		<form>
+			username: <input type="text"> <br />
+			password: <input type="text"> <br />
+			<button type="button">注册</button>
+		</form>
+	</template>
+	
+	<!-- <template id="t3">
+		<img src="images/2.jpg" alt="">
+	</template> -->
+	
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				flag: false
+			},
+			methods: {
+				toggle() {
+					this.flag = !this.flag;
+				}
+			},
+			components: {
+				"login": {
+					template: "#login"
+				},
+				"register": {
+					template: "#register"
+				},
+				"t3": {
+					template: "#t3"
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>

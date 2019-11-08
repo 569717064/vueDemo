@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>04_v-on.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<!-- 
+		利用v-on来添加事件，则可以调用vue对象内部的函数！！
+		v-on:click 可以简写为 @click
+	-->
+	<div id="app">
+		<button type="button" v-on:click="f1()">f1</button>
+		<button type="button" @click="f2()">f2</button>
+	</div>
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data:{
+				msg:"飞雪连天射白鹿",
+				msg2:"笑书神侠倚碧鸳"
+			},
+			methods:{
+				f1: function(){
+					console.log(111111111111);
+				},
+				f2: function(){
+					console.log(222222222222);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

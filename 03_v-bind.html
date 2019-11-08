@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>03_v-bind.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 
+			如何在html标记的属性中，使用vue对象的属性
+			1. 必须在html标记的属性前加上v-bind:
+			2. 在html标记I的属性中，不能写{{}}，应该直接写vue对属性的名字
+			3. "v-bind:" 可以简写为 ":"
+		-->
+		<div v-bind:title="msg">{{msg}}</div>
+		<div :title="msg2">{{msg2}}</div>
+	</div>
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data:{
+				msg:"飞雪连天射白鹿",
+				msg2:"笑书神侠倚碧鸳"
+			}
+		});
+	</script>
+</body>
+</html>

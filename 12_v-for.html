@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>12_v-for.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model="id">
+		<input type="text" v-model="name">
+		<button type="button" @click="add()">add</button>
+		
+		<!-- 
+			在使用了复选框可能会出现一个问题，当勾选了一个复选框后，在给集合最前面加数据的时候，复选框勾选的对象就改变了，
+			v-for默认是记住被勾选的下标的，这样是个问题，所以要设置成记住id的  :key="item.id"
+			id是不重复的，这样就可以解决问题
+		 -->
+		<ul>
+			<li v-for="item in list" :key="item.id">
+				<input type="checkbox">{{item.id}}----{{item.name}}				
+			</li>
+		</ul>
+	</div>
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data:{
+				id: "",
+				name: "",
+				list: [
+					{id:1,name:'张飞'},
+					{id:2,name:'关羽'},
+					{id:3,name:'赵云'},
+					{id:4,name:'马超'},
+					{id:5,name:'黄忠'}
+				]
+			},
+			methods:{
+				add() {
+					var user = {id:this.id,name:this.name};
+					//this.list.push(user);//在集合的最后一个添加
+					this.list.unshift(user);//在集合的第一个添加
+				}
+			}
+		});
+	</script>
+</body>
+</html>

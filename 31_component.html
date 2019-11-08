@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>31_component.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>	
+	<!--
+		子组件操作父组件的属性
+	 -->
+	<div id="app">
+		<!-- 注意：为子组件添加自定义属性时，属性单词必须纯小写 -->
+		<pub :parentlist="list"></pub>
+		
+		<table class="table">
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>content</th>
+			</tr>
+			<tr v-for="item in list">
+				<th>{{item.id}}</th>
+				<th>{{item.name}}</th>
+				<th>{{item.content}}</th>
+			</tr>	
+		</table>
+	</div>
+	
+	<template id="pub">
+		<div>
+			<form>
+				id:     <input type="text" v-model="id">
+				name:   <input type="text" v-model="name">
+				content:<input type="text" v-model="content">
+				<button type="button" @click="f1()">go</button>
+			</form>
+		</div>
+	</template>
+	
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				list: [
+					{id:1,name:"张珊珊",content:"在干嘛"},
+					{id:2,name:"李思思",content:"不干嘛"},
+					{id:3,name:"王微微",content:"你想干嘛"}
+				]
+			},
+			methods: {
+			},
+			components: {
+				"pub": {
+					template: "#pub",
+					props: ['parentlist'],
+					data() {
+						return {
+							id: "",
+							name: "",
+							content: ""
+						}
+					},
+					methods: {
+						f1() {
+							this.parentlist.push({id:this.id,name:this.name,content:this.content});
+						}
+					}
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>

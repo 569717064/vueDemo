@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>27_component.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>
+	<!-- 用component的is实现组件切换 -->
+	<div id="app">
+		<button @click="com='login'">登录</button>
+		<button @click="com='register'">注册</button>
+		<button type="button" @click="com='t3'">t3</button>
+		<component :is="com"></component>
+	</div>
+	
+	
+	<template id="login">
+		<form>
+			username: <input type="text"> <br />
+			password: <input type="text"> <br />
+			<button type="button">登录</button>
+		</form>
+	</template>
+	
+	<template id="register">
+		<form>
+			username: <input type="text"> <br />
+			password: <input type="text"> <br />
+			<button type="button">注册</button>
+		</form>
+	</template>
+	
+	<template id="t3">
+		<img src="images/2.jpg" alt="">
+	</template>
+	
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				com: "login"
+			},
+			methods: {
+				
+			},
+			components: {
+				"login": {
+					template: "#login"
+				},
+				"register": {
+					template: "#register"
+				},
+				"t3": {
+					template: "#t3"
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>

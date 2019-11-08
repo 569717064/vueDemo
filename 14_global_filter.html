@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>14_global_filter.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}<br>
+		{{new Date()|foo}}
+	</div>
+	<hr >
+	<div id="app2">
+		{{msg}}<br>
+		{{new Date()|foo}}
+	</div>
+	<script>
+		// 定义全局过滤器, 可以使用在同一个页面中的多个不同的Vue实例中!
+		Vue.filter("foo",function(x){
+			return x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate();
+		})
+		var app = new Vue({
+			el:"#app",
+			data:{
+				msg: "这是app"
+			}
+		});
+		
+		var app2 = new Vue({
+			el:"#app2",
+			data:{
+				msg: "这是app2"
+			}
+		});
+	</script>
+</body>
+</html>

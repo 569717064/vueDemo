@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>19_axios.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>
+	<div id="app">
+		<form class="form-inline">
+			<div class="form-group">
+				<label for="id">id</label>
+				<input type="text" class="form-control" id="id" v-model="id" >
+			</div>
+		    <div class="form-group">
+				<label for="name">name</label>
+				<input type="text" class="form-control" id="name" v-model="name" >
+		    </div>
+		    <div class="form-group">
+				<label for="birthday">birthday</label>
+				<input type="text" class="form-control" id="birthday" v-model="birthday" >
+		    </div>
+		    <div class="form-group">
+				<label for="money">money</label>
+				<input type="text" class="form-control" id="money" v-model="money" >
+		    </div>
+		    <button type="button" class="btn btn-default" @click="add">增加用户</button>
+		</form>
+		<hr >
+	
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>birthday</th>
+					<th>money</th>
+					<th>edit</th>
+					<th>delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in list">
+					<th>{{item.id}}</th>
+					<th>{{item.name}}</th>
+					<th>{{item.birthday}}</th>
+					<th>{{item.money}}</th>
+					<th><button @click="edit(item)">edit</button></th>
+					<th><button @click="del(item.id)">delete</button></th>
+				</tr>
+			</tbody>
+		</table>
+		<div id="div2">
+			<form class="form-inline">
+			    <div class="form-group">
+				    <label for="id">id</label>
+				    <input type="hidden" class="form-control" v-model="id2" >
+			    </div>
+			    <div class="form-group">
+					<label for="name">name</label>
+					<input type="text" class="form-control" v-model="name2" >
+			    </div>
+			    <div class="form-group">
+					<label for="birthday">birthday</label>
+					<input type="text" class="form-control"  v-model="birthday2" >
+			    </div>
+			    <div class="form-group">
+					<label for="money">money</label>
+					<input type="text" class="form-control"  v-model="money2" >
+			    </div>
+			    <div>
+				    <button type="button" class="btn btn-default" @click="update()">修改用户</button>
+			    </div>
+			</form>
+		</div>
+	</div>
+	<script>
+		// axios可以设置地址的前缀:（这里的的设置也可以写在main.js里)
+		axios.defaults.baseURL = "http://192.168.174.1:8888";
+					
+		var app = new Vue({
+			el: "#app",
+			data: {
+				id: null,
+				name: '',
+				birthday: '',
+				money: null,
+				list:null,
+				id2: null,
+				name2: '',
+				birthday2: '',
+				money2: null,
+				index:null
+			},
+			created() {//在mounted中调用的函数可以再页面加载的时候调用
+				this.showTable();
+				$("#div2").hide();
+			},
+			methods:{
+				add() {
+					axios.post("/users2",{
+						id:this.id,
+						name:this.name,
+						birthday:this.birthday,
+						money:this.money
+					})
+						.then((response)=>{
+							layer.msg("添加成功");
+							this.showTable();
+						});
+				},
+				
+				showTable() {
+					axios.get("/users2")
+						.then((response)=>{
+							this.list = response.data;
+						})
+						.catch(()=>{
+							layer.msg("查询失败");
+						});
+				},
+				del(id) {
+					//询问框
+					layer.confirm('是否确认删除这个部门？', {
+					  btn: ['我确认','点错了'] //按钮
+					}, ()=>{
+						 axios.delete("/users2/"+id)
+							.then((response)=>{
+								layer.msg("删除成功");
+								this.showTable();
+							});
+					}, function(){
+					  
+					});
+				},
+				edit(item) {
+					this.id2 = item.id;
+					this.name2 = item.name;
+					this.birthday2 = item.birthday;
+					this.money2 = item.money;
+					var div2 = $("#div2");
+					this.index = layer.open({
+					  type: 1,
+					  skin: 'layui-layer-rim', //加上边框
+					  area: ['420px', '240px'], //宽高
+					  content: div2
+					});
+				},
+				update() {
+					axios.put("/users2",{
+						id:this.id2,
+						name:this.name2,
+						birthday:this.birthday2,
+						money:this.money2
+					})
+						.then((response)=>{
+							layer.msg("修改成功");
+							layer.close(this.index);
+							this.showTable();
+						});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

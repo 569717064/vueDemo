@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>09_class.html</title>
+	<script src="bundle.js"></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+	<style type="text/css">
+		div {width: 200px;height: 200px;}
+		.aa {border: #FF0000 solid 5px}
+		.bb {background-color: aqua;}
+		.cc {color: blueviolet;text-align: center; line-height: 200px; font-size: 30px;}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<button type="button" @click="boolean()">切换</button>
+		<!-- 之前的普通写法 -->
+		<div class="aa bb cc">
+			扫地僧
+		</div>
+		<hr >
+		
+		<!-- 
+			我们知道，标记自带的class属性，属性值都是字符串类型，可以直接写出样式的名字
+			被绑定的class属性，直接写出的内容，就会被当做是vue对象的属性名
+			被绑定的class属性，如果想表示某一个字符串本身，切记加上引号
+		-->
+		<div :class="[flag ? 'aa' : 'bb']">
+			书童
+		</div>
+		<hr >
+		
+		<div :class="[{'aa':flag},{'bb':flag},{'cc':flag}]">
+			张无忌
+		</div>
+		<!-- 可以看出，使用vue管理class的好处是，可以在:class中写出表达式 -->
+	</div>
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data:{
+				flag:false
+			},
+			methods:{
+				boolean() {
+					if(this.flag == true){
+						this.flag = false;
+					}else{
+						this.flag = true
+					}
+					console.log(this.flag);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

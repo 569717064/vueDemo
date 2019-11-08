@@ -1,0 +1,19 @@
+li{
+	list-style-type: -moz-circle;
+}
+
+.dd{
+	background-image: url(../images/2.jpg);
+	background-size: cover;
+	border: #00 solid 5px;
+	width: 200px;
+	height: 200px;
+}
+
+#btn{
+	width: 200px;
+	height: 20px;
+	background-color: aliceblue;
+	text-align: center;
+	cursor: pointer;
+}

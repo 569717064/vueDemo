@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>02_v-cloak.html</title>
+	<script src="bundle.js"></script>
+	<style type="text/css">
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<p>===  {{msg}}  ---</p>
+		<!-- v-test会使用指定的Vue对的属性，把标记内容覆盖-->
+		<p v-text="msg">===  ---</p>
+		<!-- v-html也会使用指定的vue对的属性，把标记内容覆盖，但是它还会解释标记！ -->
+		<p v-html="msg">===  ---</p>
+	</div>
+	<script>
+		window.onload = function(){
+			var app = new Vue({
+				el:"#app",
+				data:{
+					msg: "<marquee>飞雪连天射白鹿</marquee>"
+				}
+			});	
+		}
+	</script>
+	
+	<!-- 故意把引入Vue的代码写在最下方，是为了暴露“闪烁问题” -->
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+</body>
+</html>

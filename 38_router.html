@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>38_router.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>	
+	<!-- 
+		组件传递参数(this.$route.params[.id])
+	 -->
+	<div id="app">
+		<router-link to="login/100/andy">去登录</router-link>
+		<router-link to="register">去注册</router-link>
+		<router-view></router-view>
+	</div>
+	
+	
+	<template id="login">
+		<form>
+			username: <input type="text"><br>
+			password: <input type="text"><br>
+			<button type="button" @click="f1()">login</button>
+		</form>
+	</template>
+	
+	<template id="register">
+		<form>
+			username: <input type="text"><br>
+			password: <input type="text"><br>
+			<button type="button">register</button>
+		</form>
+	</template>
+	
+	<script>
+		//注册组件
+		var login = {
+			template: "#login",
+			methods: {
+				f1() {
+					console.log(this.$route.params);
+					console.log(this.$route.params.id);
+					console.log(this.$route.params.name);
+				}
+			}
+		};
+		var register = {
+			template: "#register"
+		};
+		
+		//注册路由
+		var router = new VueRouter({
+			routes: [
+				{path: "/", component: login},
+				//参数传递,在这里需要挖坑
+				{path: "/login/:id/:name", component: login},
+				{path: "/register", component: register},
+			]
+		});
+		
+		var app = new Vue({
+			el: "#app",
+			data: {
+			},
+			router
+		});
+	</script>
+</body>
+</html>

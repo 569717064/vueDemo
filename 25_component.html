@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>25_component.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>
+	<!-- 组件也可以有自己的方法 -->
+	<div id="app">
+		<c></c>
+	</div>
+	
+	
+	<template id="t1">
+		<div>
+			{{msg}}
+			<button type="button" @click="f1()">go</button>
+		</div>
+	</template>
+	
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+			},
+			components: {
+				"c": {
+					template: "#t1",
+					data() {
+						return {
+							msg: "麻辣烫里烫辣麻"
+						};
+					},
+					methods: {
+						f1() {
+							// 在子组件的函数中,this代表的是子组件本身,不再是外面的Vue实例了!
+							this.msg = "画上荷花和尚画";
+						}
+					}
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>

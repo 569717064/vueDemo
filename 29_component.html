@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>29_component.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>	
+	<!--
+		我们已经知道，子组件不能直接访问父组件的属性，如果非要访问，只能间接访问
+		
+		实际上，子组件也不能直接访问父组件的方法!! 如果非要让子组件非要访问父组件参考30
+	 -->
+	<div id="app">
+		<t1></t1>
+	</div>
+	
+	<template id="t1">
+		<div>
+			<button type="button" @click="f1()">访问父组件</button>
+		</div>
+	</template>
+	
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				
+			},
+			methods: {
+				f1() {
+					console.log("父组件f1......")
+				}
+			},
+			components: {
+				"t1": {
+					template: "#t1"
+					
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>

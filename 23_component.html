@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>23_component.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>
+	<!-- 私有组件如何定义 -->
+	<div id="app">
+		<c1></c1>
+		<c2></c2>
+	</div>
+	
+	
+	<template id="t1">
+		<div>啦啦啦啦啦</div>
+	</template>
+	
+	<template id="t2">
+		<div>不不不不不</div>
+	</template>
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				
+			},
+			components: {
+				"c1": {
+					template: "#t1"
+				},
+				"c2": {
+					template: "#t2"
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>

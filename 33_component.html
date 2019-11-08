@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>33_component.html</title>
+	<script src="bundle.js"></script>
+</head>
+<body>	
+	<!-- 
+		我们已经知道，子组件和父组件之间不能直接访问对方的属性和方法
+		
+		我们也学习了，子组件如何直接的访问父组件的属性和方法
+		1.属性：props
+		2.方法：$emit
+		
+		下面学习，父组件如何访问子组件的属性和方法:
+		1.给子组件的标签添加一个ref属性
+		2.在父组件的函数中，使用this.$refs.<子组件ref属性的值>.<属性|方法>
+	 -->
+	<div id="app">
+		{{xx}}
+		<t1 ref="tt"></t1>
+		<button type="button" @click="f1()">go</button>
+	</div>
+	
+	<template id="t1">
+		<div>
+			我是子组件
+		</div>
+	</template>
+	
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				xx: "xxxxxxxxxxxxx"
+			},
+			methods: {
+				f1() {
+					this.$refs.tt.f2();
+					console.log(this.$refs.tt.aa);
+				}
+			},
+			components: {
+				"t1": {
+					template: "#t1",
+					data() {
+						return {
+							aa: 100
+						}
+					},
+					methods: {
+						f2() {
+							console.log("f2........");
+						}
+					}
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>
